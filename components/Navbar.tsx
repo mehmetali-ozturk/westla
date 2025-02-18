@@ -61,7 +61,7 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       <div className={`${isOpen ? 'block' : 'hidden'} md:hidden`}>
-        <div className="px-2 pt-2 pb-3 space-y-1 bg-lapd-primary text-center">
+        <div className="px-2 pt-2 pb-3 space-y-1 bg-lapd-primary">
           <Link 
             href="/" 
             className="block px-3 py-2 rounded-md hover:bg-lapd-primary-dark hover:text-lapd-secondary"
