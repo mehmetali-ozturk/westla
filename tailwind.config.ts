@@ -7,12 +7,24 @@ export default {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {
-      colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
-      },
+    extend: {      
+      fontFamily: {
+      sans: ['var(--font-poppins)'],
     },
+      colors: {
+        'lapd': {
+          primary: '#012B6D',    // Navy blue
+          secondary: '#FFBF00',  // Gold/Yellow
+          accent: '#2FA7EC',     // Light blue
+          'primary-light': '#023894',
+          'primary-dark': '#011d4a',
+          'secondary-light': '#FFD040',
+          'secondary-dark': '#CC9900',
+          'accent-light': '#54B8F0',
+          'accent-dark': '#1B8FD4',
+        }
+      }
+    }
   },
   plugins: [],
 } satisfies Config;
