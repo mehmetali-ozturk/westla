@@ -15,6 +15,7 @@ export default {
         'lapd': {
           primary: '#012B6D',    // Navy blue
           secondary: '#FFBF00',  // Gold/Yellow
+          button: '#FF7300',     // Gold/Yellow
           accent: '#2FA7EC',     // Light blue
           'primary-light': '#023894',
           'primary-dark': '#011d4a',
