@@ -12,16 +12,16 @@ const Footer: React.FC = () => {
           src="/footer-bg.png" // Add your background image to public folder
           alt="Footer Background"
           fill
-          className="object-cover opacity-20"
+          className="object-cover "
         />
       </div>
 
       {/* Content */}
-      <div className="relative z-10 bg-lapd-primary-light/50">
+      <div className="relative z-10 bg-lapd-primary/80">
         <div className="max-w-7xl mx-auto px-4 py-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 pl-24">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 md:pl-24 text-center md:text-left">
             {/* Logo Section */}
-            <div className="flex flex-col">
+            <div className="flex flex-col items-center">
               <Image
                 src="/logo.png"
                 alt="LAPD Logo"
