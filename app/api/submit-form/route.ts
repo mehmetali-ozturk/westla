@@ -1,3 +1,22 @@
+type FormDataType = {
+    email: string;
+    oocFullName: string;
+    oocAge: string;
+    fivemHours: string;
+    discordName: string;
+    discordId: string;
+    steamLink: string;
+    whereDidYouSee: string;
+    previousLEOExperience: string;
+    reference: string;
+    icFullName: string;
+    icNationality: string;
+    icBirthDate: string;
+    icGender: string;
+    icHealthIssues: string;
+    discordJoined: boolean;
+  };
+
 import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
@@ -58,6 +77,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ success: true });
   } catch (error) {
+
     console.error('Error in API route:', error);
     return NextResponse.json(
       { error: 'Form gönderimi başarısız: ' + (error as Error).message },
