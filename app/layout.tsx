@@ -3,6 +3,9 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { Suspense } from 'react';
+import Loading from './loading';
+
 
 const poppins = Poppins({
   weight: ['400', '500', '600', '700'],
@@ -13,7 +16,7 @@ const poppins = Poppins({
 
 export const metadata: Metadata = {
   title: "West LA Police Department",
-  description: "Los Angeles Police Department West Division",
+  description: "West Los Angeles Police Department Roleplay Community",
 };
 
 export default function RootLayout({
@@ -24,10 +27,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${poppins.className} antialiased`}>
-        
-        <Navbar />
-        {children}
-        <Footer />
+        <Suspense fallback={<Loading />}>
+          <Navbar />
+          {children}
+          <Footer />
+        </Suspense>
       </body>
     </html>
   );
