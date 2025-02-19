@@ -9,7 +9,7 @@ type FormField = {
   required?: boolean;
   min?: string;
   placeholder?: string;
-  section: 'ic' | 'ooc'; 
+  section: 'ic' | 'ooc';
 };
 
 const initialFormData = {
@@ -66,7 +66,7 @@ export default function Basvuru() {
         fields: [
           { name: 'E-posta', value: formData.email },
           { name: 'Ad Soyad', value: formData.oocFullName },
-          { name: 'Yaş', value: formData.oocAge },
+          { name: 'Yaş', value: formData.oocAge.toString() },
           { name: 'Fivem Saati', value: formData.fivemHours },
           { name: 'Discord İsmi', value: formData.discordName },
           { name: 'Discord ID', value: formData.discordId },
@@ -97,7 +97,7 @@ export default function Basvuru() {
 
       if (response.ok) {
         alert('Başvurunuz başarıyla gönderildi!');
-        // Form reset or redirect
+        setFormData(initialFormData); // Form reset
       } else {
         alert('Başvuru gönderilirken bir hata oluştu.');
       }
@@ -114,6 +114,7 @@ export default function Basvuru() {
         
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-8">
+            {/* OOC Section */}
             <div className="space-y-4">
               <h2 className="text-xl font-semibold text-lapd-primary border-b pb-2">Out of Character (OOC) Bilgileri</h2>
               {formFields
@@ -129,12 +130,14 @@ export default function Basvuru() {
                       min={field.min}
                       placeholder={field.placeholder}
                       className="mt-1 block w-full rounded-md border text-black shadow-sm p-2"
-                      value={formData[field.id]}
+                      value={formData[field.id].toString()}
                       onChange={(e) => setFormData({...formData, [field.id]: e.target.value})}
                     />
                   </div>
                 ))}
             </div>
+
+            {/* IC Section */}
             <div className="space-y-4">
               <h2 className="text-xl font-semibold text-lapd-primary border-b pb-2">In Character (IC) Bilgileri</h2>
               {formFields
@@ -150,7 +153,7 @@ export default function Basvuru() {
                       min={field.min}
                       placeholder={field.placeholder}
                       className="mt-1 block w-full rounded-md border text-black shadow-sm p-2"
-                      value={formData[field.id]}
+                      value={formData[field.id].toString()}
                       onChange={(e) => setFormData({...formData, [field.id]: e.target.value})}
                     />
                   </div>
@@ -164,7 +167,7 @@ export default function Basvuru() {
                   type="checkbox"
                   required
                   className="rounded border-gray-300"
-                  checked={formData.discordJoined}
+                  checked={formData.discordJoined as boolean}
                   onChange={(e) => setFormData({...formData, discordJoined: e.target.checked})}
                 />
                 <span className="text-sm text-gray-700">discord.gg/westla Sunucusuna katıldım *</span>
