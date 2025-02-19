@@ -56,8 +56,7 @@ export default function Basvuru() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    const webhookUrl = process.env.NEXT_PUBLIC_DISCORD_WEBHOOK_URL;
+      
     
     const message = {
       embeds: [{
@@ -87,19 +86,19 @@ export default function Basvuru() {
     };
 
     try {
-      const response = await fetch(webhookUrl!, {
+      const response = await fetch('/api/submit-form', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(message)
       });
-
+  
       if (response.ok) {
         alert('Başvurunuz başarıyla gönderildi!');
-        setFormData(initialFormData); // Form reset
+        setFormData(initialFormData);
       } else {
-        alert('Başvuru gönderilirken bir hata oluştu.');
+        throw new Error('Form gönderimi başarısız');
       }
     } catch (error) {
       console.error('Error:', error);
