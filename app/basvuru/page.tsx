@@ -56,34 +56,8 @@ export default function Basvuru() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-      
     
-    const message = {
-      embeds: [{
-        title: 'Yeni Başvuru',
-        color: 0x012B6D, 
-        fields: [
-          { name: 'E-posta', value: formData.email },
-          { name: 'Ad Soyad', value: formData.oocFullName },
-          { name: 'Yaş', value: formData.oocAge.toString() },
-          { name: 'Fivem Saati', value: formData.fivemHours },
-          { name: 'Discord İsmi', value: formData.discordName },
-          { name: 'Discord ID', value: formData.discordId },
-          { name: 'Steam Link', value: formData.steamLink },
-          { name: 'Başvuru Kaynağı', value: formData.whereDidYouSee },
-          { name: 'Önceki LEO Deneyimi', value: formData.previousLEOExperience },
-          { name: 'Referans', value: formData.reference },
-          { name: '-----------IC KISIM-----------', value: '' },
-          { name: '(IC) Ad Soyad', value: formData.icFullName },
-          { name: 'Uyruk', value: formData.icNationality },
-          { name: 'Doğum Tarihi', value: formData.icBirthDate },
-          { name: 'Cinsiyet', value: formData.icGender },
-          { name: 'Sağlık Sorunları', value: formData.icHealthIssues },
-          { name: 'Discord Sunucusuna Katıldı', value: formData.discordJoined ? 'Evet' : 'Hayır' }
-        ],
-        timestamp: new Date().toISOString()
-      }]
-    };
+    console.log('Form data being sent:', formData); // Debug log
 
     try {
       const response = await fetch('/api/submit-form', {
@@ -91,17 +65,20 @@ export default function Basvuru() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(message)
+        body: JSON.stringify(formData) // Send the complete formData object
       });
-  
-      if (response.ok) {
-        alert('Başvurunuz başarıyla gönderildi!');
-        setFormData(initialFormData);
-      } else {
-        throw new Error('Form gönderimi başarısız');
+
+      const result = await response.json();
+      console.log('API Response:', result); // Debug log
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Başvuru gönderilirken bir hata oluştu');
       }
+
+      alert('Başvurunuz başarıyla gönderildi!');
+      setFormData(initialFormData); // Reset form
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Form submission error:', error);
       alert('Başvuru gönderilirken bir hata oluştu.');
     }
   };
