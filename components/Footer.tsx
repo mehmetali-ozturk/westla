@@ -23,7 +23,7 @@ const Footer: React.FC = () => {
             {/* Logo Section */}
             <div className="flex flex-col items-center">
               <Image
-                src="/logo.png"
+                src="/westla-logo.png"
                 alt="LAPD Logo"
                 width={150}
                 height={150}
