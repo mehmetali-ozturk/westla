@@ -1,38 +1,36 @@
-type FormDataType = {
-    email: string;
-    oocFullName: string;
-    oocAge: string;
-    fivemHours: string;
-    discordName: string;
-    discordId: string;
-    steamLink: string;
-    whereDidYouSee: string;
-    previousLEOExperience: string;
-    reference: string;
-    icFullName: string;
-    icNationality: string;
-    icBirthDate: string;
-    icGender: string;
-    icHealthIssues: string;
-    discordJoined: boolean;
-  };
-
 import { NextResponse } from 'next/server';
+
+type FormDataType = {
+  email: string;
+  oocFullName: string;
+  oocAge: string;
+  fivemHours: string;
+  discordName: string;
+  discordId: string;
+  steamLink: string;
+  whereDidYouSee: string;
+  previousLEOExperience: string;
+  reference: string;
+  icFullName: string;
+  icNationality: string;
+  icBirthDate: string;
+  icGender: string;
+  icHealthIssues: string;
+  discordJoined: boolean;
+};
 
 export async function POST(request: Request) {
   try {
     const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
-    const formData = await request.json();
+    const formData: FormDataType = await request.json();
 
     if (!webhookUrl) {
-      console.error('Webhook URL is not configured');
+      console.error('Webhook URL yapılandırılmamış');
       return NextResponse.json(
-        { error: 'Webhook URL yapılandırılmamış' },
+        { error: 'Sistem yapılandırma hatası' },
         { status: 500 }
       );
     }
-
-    console.log('Received form data:', formData); // Debug log
 
     const response = await fetch(webhookUrl, {
       method: 'POST',
@@ -40,27 +38,28 @@ export async function POST(request: Request) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        content: "🚨 **Yeni LAPD Başvurusu Alındı!** 🚨",
         embeds: [{
-          title: '👮 Yeni Başvuru',
+          title: '👮 Başvuru Detayları',
           color: 0x012B6D,
           fields: [
-            { name: '📧 E-posta', value: formData.email || 'Belirtilmemiş' },
-            { name: '👤 Ad Soyad', value: formData.oocFullName || 'Belirtilmemiş' },
-            { name: '🎂 Yaş', value: formData.oocAge?.toString() || 'Belirtilmemiş' },
-            { name: '⏱️ Fivem Saati', value: formData.fivemHours || 'Belirtilmemiş' },
-            { name: '🎮 Discord İsmi', value: formData.discordName || 'Belirtilmemiş' },
-            { name: '🆔 Discord ID', value: formData.discordId || 'Belirtilmemiş' },
-            { name: '🎯 Steam Link', value: formData.steamLink || 'Belirtilmemiş' },
-            { name: '📱 Başvuru Kaynağı', value: formData.whereDidYouSee || 'Belirtilmemiş' },
-            { name: '👮 Önceki LEO Deneyimi', value: formData.previousLEOExperience || 'Belirtilmemiş' },
-            { name: '👥 Referans', value: formData.reference || 'Belirtilmemiş' },
+            { name: '📧 E-posta', value: formData.email, inline: true },
+            { name: '👤 Ad Soyad', value: formData.oocFullName, inline: true },
+            { name: '🎂 Yaş', value: formData.oocAge, inline: true },
+            { name: '⏱️ Fivem Saati', value: formData.fivemHours, inline: true },
+            { name: '🎮 Discord İsmi', value: formData.discordName, inline: true },
+            { name: '🆔 Discord ID', value: formData.discordId, inline: true },
+            { name: '🎯 Steam Link', value: formData.steamLink },
+            { name: '📱 Başvuru Kaynağı', value: formData.whereDidYouSee },
+            { name: '👮 Önceki LEO Deneyimi', value: formData.previousLEOExperience },
+            { name: '👥 Referans', value: formData.reference },
             { name: '\u200B', value: '**---------------IC KISIM---------------**' },
-            { name: '📝 Karakter Adı', value: formData.icFullName || 'Belirtilmemiş' },
-            { name: '🌍 Uyruk', value: formData.icNationality || 'Belirtilmemiş' },
-            { name: '📅 Doğum Tarihi', value: formData.icBirthDate || 'Belirtilmemiş' },
-            { name: '⚧ Cinsiyet', value: formData.icGender || 'Belirtilmemiş' },
-            { name: '🏥 Sağlık Durumu', value: formData.icHealthIssues || 'Belirtilmemiş' },
-            { name: '✅ Discord Durumu', value: formData.discordJoined ? '**Sunucuya Katıldı**' : 'Katılmadı' }
+            { name: '📝 Karakter Adı', value: formData.icFullName, inline: true },
+            { name: '🌍 Uyruk', value: formData.icNationality, inline: true },
+            { name: '📅 Doğum Tarihi', value: formData.icBirthDate, inline: true },
+            { name: '⚧ Cinsiyet', value: formData.icGender, inline: true },
+            { name: '🏥 Sağlık Durumu', value: formData.icHealthIssues },
+            { name: '✅ Discord Durumu', value: formData.discordJoined ? '**Sunucuya Katıldı**' : '**Henüz Katılmadı**' }
           ],
           timestamp: new Date().toISOString(),
           footer: {
@@ -71,16 +70,24 @@ export async function POST(request: Request) {
     });
 
     if (!response.ok) {
-      console.error('Discord API Error:', await response.text());
-      throw new Error('Discord webhook hatası');
+      const errorText = await response.text();
+      console.error('Discord API Hatası:', errorText);
+      throw new Error('Webhook gönderimi başarısız');
     }
 
-    return NextResponse.json({ success: true });
-  } catch (error) {
+    return NextResponse.json({
+      success: true,
+      message: 'Başvurunuz başarıyla alındı'
+    });
 
-    console.error('Error in API route:', error);
+  } catch (error) {
+    console.error('API Route Hatası:', error);
     return NextResponse.json(
-      { error: 'Form gönderimi başarısız: ' + (error as Error).message },
+      { 
+        success: false,
+        error: 'Başvuru gönderilirken bir hata oluştu',
+        details: (error as Error).message 
+      },
       { status: 500 }
     );
   }
