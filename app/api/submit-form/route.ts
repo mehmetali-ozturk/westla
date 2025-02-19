@@ -23,12 +23,25 @@ export async function POST(request: Request) {
   try {
     const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
     const formData: FormDataType = await request.json();
+    
+    // Debug logs
+    console.log('Received form data:', formData);
+    console.log('Webhook URL configured:', !!webhookUrl);
 
     if (!webhookUrl) {
       console.error('Webhook URL yapılandırılmamış');
       return NextResponse.json(
         { error: 'Sistem yapılandırma hatası' },
         { status: 500 }
+      );
+    }
+
+    // Validate form data
+    if (!formData || !formData.email || !formData.oocFullName) {
+      console.error('Missing required fields:', formData);
+      return NextResponse.json(
+        { error: 'Gerekli alanlar eksik' },
+        { status: 400 }
       );
     }
 
