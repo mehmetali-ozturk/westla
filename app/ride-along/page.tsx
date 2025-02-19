@@ -93,7 +93,7 @@ export default function RideAlong() {
             </div>
 
             {/* Discord Checkbox */}
-            {/* <div>
+            <div>
               <label className="flex items-center space-x-2">
                 <input
                   type="checkbox"
@@ -102,10 +102,10 @@ export default function RideAlong() {
                   checked={formData.TOC as boolean}
                   onChange={(e) => setFormData({...formData, TOC: e.target.checked})}
                 />
-                <span className="text-sm text-gray-700">Devriye esansında başıma gelebilecek ölüm, yaralanma, kalıcı hasar, psikolojik hasar vb. hiçbir olumsuz durumdan devriye memurunun veya LAPD'nin sorumlu olmadığını kabul ediyorum. *</span>
+                <span className="text-sm text-gray-700">Devriye esansında başıma gelebilecek ölüm, yaralanma, kalıcı hasar, psikolojik hasar vb. hiçbir olumsuz durumdan devriye memurunun veya LAPD&apos;nin sorumlu olmadığını kabul ediyorum. *</span>
               </label>
-            </div> */}
-            {/* <div>
+            </div>
+            <div>
               <label className="flex items-center space-x-2">
                 <input
                   type="checkbox"
@@ -116,7 +116,7 @@ export default function RideAlong() {
                 />
                 <span className="text-sm text-gray-700">Devriye esnasında devriye memurunun talimatlarına uyacağımı aksi takdirde programdan atılacağımı kabul ediyorum.*</span>
               </label>
-            </div> */}
+            </div>
           </div>
 
           <button
