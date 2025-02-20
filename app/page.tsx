@@ -21,7 +21,7 @@ export default function Home() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Hero Section with Background */}
-      <div className="relative h-[600px] md:h-[700px]">
+      <div className="relative h-[500px] md:h-[650px]">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img
@@ -31,24 +31,23 @@ export default function Home() {
           />
         </div>
       
-        <div className="relative z-10 flex flex-col pt-20 md:pt-32 pb-24 md:pb-30 text-white px-6 md:px-20 items-center md:items-start justify-center w-full">
-        <div className="flex flex-col text-center md:text-left md:items-start items-center gap-4 md:gap-6">
-          {/* Hero Text Items */}
-          <p className="md:text-l text-m md:tracking-[11px] tracking-[4px] font-semibold text-lapd-secondary-dark">AHMANSON RECRUIT TRAINING CENTER</p>
-          <p className="md:text-7xl text-5xl font-semibold">WEST LAPD HIRING</p>
-          <p className="md:text-5xl text-3xl text-lapd-secondary-dark font-serif">Seminer & Atölye</p>
-          <p className="md:text-3xl text-2xl font-medium">HER GÜN 18:00 - 23:00</p>
-          <p className="md:text-3xl text-2xl font-medium text-lapd-secondary-dark">ALTTAKI DUGMEDEN KAYIT OL</p>
+        <div className="relative z-10 flex flex-col pt-24 md:pt-72 pb-24 md:pb-30 text-white px-6 md:px-28 items-center md:items-start justify-center w-full">
+          <div className="flex flex-col text-center md:text-left md:items-start items-center gap-2 md:gap-0">
+            {/* Hero Text Items */}
+            <p className="md:text-l text-m md:tracking-[11px] tracking-[4px] font-semibold text-lapd-secondary-dark">AHMANSON RECRUIT TRAINING CENTER</p>
+            <p className="md:text-7xl text-5xl font-semibold">WEST LAPD HIRING</p>
+            <p className="md:text-5xl text-3xl text-lapd-secondary-dark font-serif mb-2">Seminer & Atölye</p>
+            <p className="md:text-3xl text-2xl font-medium">HER GÜN 18:00 - 23:00</p>
 
-          {/* CTA Button */}
-          <Link
-            href="/basvuru"
-            className="mt-8 px-8 py-3 bg-lapd-button text-l rounded-lg hover:bg-lapd-button/90 transition-colors max-w-max"
-          >
-            Başvur
-          </Link>
+            {/* CTA Button */}
+            <Link
+              href="/basvuru"
+              className="mt-4 px-8 py-3 bg-lapd-button text-l rounded-lg hover:bg-lapd-button/90 transition-colors max-w-max"
+            >
+              Başvur
+            </Link>
+          </div>
         </div>
-      </div>
       </div>
       
       {/* Grid Section */}
