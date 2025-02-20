@@ -12,9 +12,9 @@ export default function Home() {
     { question: "Çok fazla trafik cezam varsa, polis memuru olmamda sorun yaşar mıyım?", answer: "Durum vaka bazında değerlendirilir." },
   ];
 
-  const [openIndex, setOpenIndex] = useState(null);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  const toggleFAQ = (index) => {
+  const toggleFAQ = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
