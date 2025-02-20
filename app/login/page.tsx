@@ -1,15 +1,40 @@
 'use client';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function Login() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const router = useRouter();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
-    console.log('Username:', username);
-    console.log('Password:', password);
-    // Add your login logic here
+
+    try {
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Giriş başarısız');
+      }
+
+      const data = await response.json();
+
+      if (!data.token) {
+        throw new Error('Token alınamadı');
+      }
+
+      localStorage.setItem('token', data.token);
+
+      router.push('/basvuru');
+    } catch(error) {
+      console.error("Error: ", error);
+    }
   };
 
   return (
