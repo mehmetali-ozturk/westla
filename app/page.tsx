@@ -142,7 +142,7 @@ export default function Home() {
                 <div className="grid-image-overlay absolute inset-0 bg-black bg-opacity-50 transition-opacity duration-300 group-hover:bg-opacity-70"></div>
                 <div className="grid-text-wrapper absolute inset-0 flex flex-col justify-end p-6 text-white">
                   <div className="grid-title text-2xl font-semibold">KARİYERLER</div>
-                  <div className="grid-text mt-2">LAPD&apos;de 250&apos;den Fazla Farklı İş Var</div>
+                  <div className="grid-text mt-2">LAPD'de 250'den Fazla Farklı İş Var</div>
                 </div>
               </div>
             </Link>
