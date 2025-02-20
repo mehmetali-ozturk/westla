@@ -15,8 +15,8 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "West LA Police Department",
-  description: "West Los Angeles Police Department Roleplay Community",
+  title: "West LA Police Station",
+  description: "West Los Angeles Police Station Roleplay Community",
 };
 
 export default function RootLayout({
