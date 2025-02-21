@@ -1,15 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react';
-import { createClient } from '@supabase/supabase-js';
-
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_ANON_KEY;
-
-if (!supabaseUrl || !supabaseKey) {
-  throw new Error('Missing Supabase URL or Key');
-}
-
-const supabase = createClient(supabaseUrl, supabaseKey);
+import Image from 'next/image';
 
 interface Personnel {
   id: number;
@@ -19,10 +10,10 @@ interface Personnel {
   img_src: string;
 }
 
-export default function Personel() {
+export default function Personnel() {
   const [showVideo, setShowVideo] = useState(false);
   const [personnel, setPersonnel] = useState<Personnel[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     fetchPersonnel();
@@ -30,58 +21,34 @@ export default function Personel() {
 
   const fetchPersonnel = async () => {
     try {
-      const { data, error } = await supabase
-        .from('personnel')
-        .select('*');
-  
-      if (error) {
-        throw error;
+      const response = await fetch('/api/personnel');
+      if (!response.ok) {
+        throw new Error('Veri çekme hatası');
       }
-  
-      if (data) {
-        const rankOrder: Record<string, number> = {
-          'Lieutenant': 1,
-          'Sergeant II': 2,
-          'Detective II': 3,
-          'Sergeant I': 4,
-          'Senior Lead Officer': 5,
-          'Detective I': 6,
-          'Officer II': 7
-        };
-  
-        const sortedData = [...data].sort((a, b) => {
-          const rankA = rankOrder[a.rank as keyof typeof rankOrder] || 999;
-          const rankB = rankOrder[b.rank as keyof typeof rankOrder] || 999;
-          return rankA - rankB;
-        });
-  
-        setPersonnel(sortedData);
-        setLoading(false);
-      }
-    } catch (error) {
-      console.error('Error fetching personnel:', error);
-      setLoading(false);
+      const data = await response.json();
+      setPersonnel(data);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Bir hata oluştu');
+      console.error('Error fetching personnel:', err);
     }
   };
-  
   useEffect(() => {
-    if (showVideo) {
-      const video = document.getElementById("bragovich-video") as HTMLVideoElement;
-      if (video) {
-        video.play();
-        video.onended = () => {
-          setShowVideo(false);
-        };
-      }
+    const video = document.getElementById("bragovich-video") as HTMLVideoElement;
+    if (showVideo && video) {
+      video.currentTime = 0; // Videoyu başa sar
+      video.play().catch(err => console.error("Video oynatma hatası:", err));
+      
+      // Video bittiğinde state'i sıfırla
+      video.onended = () => {
+        setShowVideo(false);
+      };
     }
   }, [showVideo]);
 
-  // Function to play the video
   const playVideo = () => {
     setShowVideo(true);
   };
 
-  // Normalize rank names for grouping
   const normalizeRank = (rank: string) => {
     if (rank.startsWith("Officer")) {
       return "Officers";
@@ -89,7 +56,6 @@ export default function Personel() {
     return rank;
   };
 
-  // Group personnel by normalized rank
   const groupedPersonnel = personnel.reduce<Record<string, typeof personnel>>((acc, person) => {
     const normalizedRank = normalizeRank(person.rank);
     if (!acc[normalizedRank]) {
@@ -98,6 +64,10 @@ export default function Personel() {
     acc[normalizedRank].push(person);
     return acc;
   }, {});
+
+  if (error) {
+    return <div className="text-red-500 text-center p-4">{error}</div>;
+  }
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-white">
@@ -115,20 +85,28 @@ export default function Personel() {
               <div
                 key={idx}
                 className="flex flex-col items-center bg-white p-4 rounded-lg w-64 h-max"
-                onClick={person.name === "BragOvich" ? playVideo : undefined}
+                onClick={() => person.name === "BragOvich" ? playVideo() : null}
               >
                 {person.name === "BragOvich" && showVideo ? (
-                  <video
-                    id="bragovich-video"
-                    src="bragovich.mp4"
-                    className="w-full h-[220px] object-cover mb-4"
-                  />
+                  <div className="w-full h-[220px] relative">
+                    <video
+                      id="bragovich-video"
+                      src="/bragovich.mp4"
+                      className="w-full h-full object-cover"
+                      playsInline
+                      controls={false}
+                    />
+                  </div>
                 ) : (
-                  <img
-                    src= {person.img_src}
-                    alt={person.name}
-                    className="w-full h-[220px] object-cover mb-4"
-                  />
+                  <div className="relative w-full h-[220px] mb-4">
+                    <Image
+                      src={person.img_src}
+                      alt={person.name}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 256px) 100vw, 256px"
+                    />
+                  </div>
                 )}
                 <h3 className="text-xl font-semibold text-lapd-primary text-center">{person.name}</h3>
                 <p className="text-gray-700 text-center">{person.rank}</p>
