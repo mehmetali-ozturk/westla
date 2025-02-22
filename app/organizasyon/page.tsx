@@ -41,9 +41,9 @@ const sections = [
 export default function Organizasyon() {
   return (
     <div className="w-full bg-white ">
-      <div className="py-8 bg-lapd-accent-light/50">
-      <h1 className="text-4xl font-bold text-lapd-primary text-center m-3">Organizasyon</h1>
-      <p className="text-lapd-primary-dark text-center ">Şehrimizin güvenliği için farklı görevlerde uzmanlaşmış birimlerimizle hizmet veriyoruz. Her birim, topluma daha güvenli ve huzurlu bir ortam sağlamak için özel eğitim almış personellerden oluşur. Aşağıda, organizasyonumuzun farklı bölümlerini keşfedebilirsiniz.</p>
+      <div className="py-8 bg-lapd-accent/30">
+      <h1 className="text-4xl font-bold text-black text-center m-3">Organizasyon</h1>
+      <p className="text-black text-center ">Şehrimizin güvenliği için farklı görevlerde uzmanlaşmış birimlerimizle hizmet veriyoruz. Her birim, topluma daha güvenli ve huzurlu bir ortam sağlamak için özel eğitim almış personellerden oluşur. Aşağıda, organizasyonumuzun farklı bölümlerini keşfedebilirsiniz.</p>
       </div>
       {sections.map((section, index) => (
         <section key={index} className={`space-y-4 flex flex-col ${section.reverse ? 'md:flex-row-reverse' : 'md:flex-row'} items-center md:items-start my-0 md:my-0`}>
@@ -54,9 +54,9 @@ export default function Organizasyon() {
               className="w-full h-full object-cover"
             />
           </div>
-          <div className="md:w-1/2 w-full md:px-8 mt-4 md:mt-0 px-8">
-            <h2 className="text-3xl font-semibold text-lapd-primary">{section.title}</h2>
-            <p className="text-gray-700 my-2">{section.description}</p>
+          <div className="md:w-1/2 w-full md:px-8 md:mt-3">
+            <h2 className="text-2xl font-semibold text-lapd-primary mt-20">{section.title}</h2>
+            <p className="text-gray-700 my-2 ">{section.description}</p>
             <p className="text-gray-700 my-8">{section.description2}</p>
           </div>
         </section>
