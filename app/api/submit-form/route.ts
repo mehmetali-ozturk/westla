@@ -51,7 +51,7 @@ export async function POST(request: Request) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        content: "🚨 **Yeni LAPD Başvurusu Alındı!** 🚨",
+        content: "🚨 **Yeni LAPD Başvurusu Alındı!** 🚨 ||@everyone||",
         embeds: [{
           title: '👮 Başvuru Detayları',
           color: 0x012B6D,

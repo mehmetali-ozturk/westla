@@ -2,18 +2,18 @@ import { NextResponse } from 'next/server';
 
 type RideAlongFormData = {
   icName: string;
-  DOB: string;
   phoneNumber: string;
   adress: string;
-  rideAlongDate: string;
-  rideAlongTime: string;
-  TOC: boolean;
-  TOC2: boolean;
+  convenientTime: string;
+  casePlace: string;
+  caseWitnesses: string;
+  casePolice: string;
+  caseAbout: string;
 };
 
 export async function POST(request: Request) {
   try {
-    const webhookUrl = process.env.DISCORD_WEBHOOK_URL_RIDE_ALONG;
+    const webhookUrl = process.env.DISCORD_WEBHOOK_URL_PRAISE_COMPLAINT;
     const formData: RideAlongFormData = await request.json();
     
     // Debug logs
@@ -29,7 +29,7 @@ export async function POST(request: Request) {
     }
 
     // Validate form data
-    if (!formData || !formData.icName || !formData.DOB || !formData.phoneNumber || !formData.adress || !formData.rideAlongDate) {
+    if (!formData || !formData.icName || !formData.phoneNumber || !formData.adress || !formData.convenientTime || !formData.casePlace || !formData.caseWitnesses || !formData.casePolice || !formData.caseAbout) {
       console.error('Missing required fields:', formData);
       return NextResponse.json(
         { error: 'Gerekli alanlar eksik' },
@@ -43,23 +43,23 @@ export async function POST(request: Request) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        content: "🚨 **Yeni Ride Along Başvurusu Alındı!** 🚨 ||@everyone||",
+        content: "🚨 **Yeni Övgü - Şikayet Formu Alındı!** 🚨 ||@everyone||",
         embeds: [{
-          title: '👮 Ride Along Başvuru Detayları',
+          title: '👮 Övgü - Şikayet Formu Detayları',
           color: 0x012B6D,
           fields: [
             { name: '📧 İsim', value: formData.icName },
-            { name: '🎂 Doğum Tarihi', value: formData.DOB },
             { name: '📞 Telefon Numarası', value: formData.phoneNumber },
             { name: '🏠 Adres', value: formData.adress },
-            { name: '📅 Ride Along Tarihi', value: formData.rideAlongDate },
-            { name: '🕒 Ride Along Saati', value: formData.rideAlongTime },
-            { name: '✅ Sorumluluk Reddi', value: formData.TOC ? 'Evet' : 'Hayır' },
-            { name: '✅ Sorumluluk Reddi 2', value: formData.TOC2 ? 'Evet' : 'Hayır' }
+            { name: '🕒 Uygun Zaman', value: formData.convenientTime },
+            { name: '📍 Olayın Gerçekleştiği yer', value: formData.casePlace },
+            { name: '👮 Olaya karışan memur', value: formData.casePolice },
+            { name: '👥 Şahitler', value: formData.caseWitnesses },
+            { name: '📝 Olay Hakkında', value: formData.caseAbout },
           ],
           timestamp: new Date().toISOString(),
           footer: {
-            text: 'West LAPD Ride Along Başvuru Sistemi'
+            text: 'West LA Sivil Övgü ve Şikayet Sistemi'
           }
         }]
       })

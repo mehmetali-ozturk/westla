@@ -1,10 +1,12 @@
 import { createClient } from '@supabase/supabase-js';
 import { NextResponse } from 'next/server';
 
+
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_ANON_KEY;
 
 const supabase = createClient(supabaseUrl!, supabaseKey!);
+
 
 export async function GET() {
     try {
@@ -21,7 +23,8 @@ export async function GET() {
         'Sergeant I': 4,
         'Senior Lead Officer': 5,
         'Detective I': 6,
-        'Officer II': 7
+        'Officer III': 7,
+        'Officer II': 8,
       };
   
       const sortedData = [...data].sort((a, b) => {
@@ -38,5 +41,6 @@ export async function GET() {
         { status: 500 }
       );
     }
+    
   }
   
