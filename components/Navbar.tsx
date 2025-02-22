@@ -3,9 +3,31 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
+import { LogIn } from 'lucide-react';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isFormsOpen, setIsFormsOpen] = useState(false);
+  const [closeTimeout, setCloseTimeout] = useState<NodeJS.Timeout | null>(null);
+
+  const handleMouseEnter = () => {
+    if (closeTimeout) {
+      clearTimeout(closeTimeout);
+      setCloseTimeout(null);
+    }
+    setIsFormsOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    const timeout = setTimeout(() => {
+      setIsFormsOpen(false);
+    }, 100); // 300ms gecikme
+    setCloseTimeout(timeout);
+  };
+
+  const toggleMobileForms = () => {
+    setIsFormsOpen(!isFormsOpen);
+  };
 
   return (
     <nav className="bg-lapd-primary text-white py-4 lg:px-20 px-2 relative">
@@ -26,20 +48,70 @@ const Navbar = () => {
           <Link href="/" className="hover:text-lapd-secondary transition-colors">
             Ana Sayfa
           </Link>
-          <Link href="/basvuru" className="hover:text-lapd-secondary transition-colors">
+          {/* <Link href="/basvuru" className="hover:text-lapd-secondary transition-colors">
             Başvuru
-          </Link>
-          <Link href="/ride-along" className="hover:text-lapd-secondary transition-colors">
-            Ride Along
-          </Link>
+          </Link> */}
+
+          {/* Formlar Dropdown */}
+          <div 
+            className="relative z-50 group" 
+            onMouseEnter={handleMouseEnter} 
+            onMouseLeave={handleMouseLeave}
+          >
+            <button 
+              className="hover:text-lapd-secondary transition-colors flex items-center"
+            >
+              Formlar
+              <svg 
+                className={`w-3.5 h-3.5 ml-1 transition-transform ${isFormsOpen ? 'transform rotate-180' : ''}`} 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24" 
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+            {isFormsOpen && (
+              <div 
+                className="absolute left-0 mt-2 w-48 bg-lapd-primary-dark text-white shadow-lg z-50 border border-white"
+              >
+                <Link 
+                  href="/basvuru" 
+                  onClick={() => setIsFormsOpen(false)}  
+                  className="block px-4 py-2 hover:bg-lapd-primary-dark hover:text-lapd-secondary"
+                >
+                  Başvuru 
+                </Link>
+                <Link 
+                  href="/ride-along"
+                  onClick={() => setIsFormsOpen(false)}  
+                  className="block px-4 py-2 hover:bg-lapd-primary-dark hover:text-lapd-secondary"
+                >
+                  Ride Along
+                </Link>
+                <Link 
+                  href="/ovgu-sikayet" 
+                  onClick={() => setIsFormsOpen(false)}  
+                  className="block px-4 py-2 hover:bg-lapd-primary-dark hover:text-lapd-secondary"
+                >
+                  Övgü Şikayet 
+                </Link>
+              </div>
+            )}
+          </div>
+
           <Link href="/personel" className="hover:text-lapd-secondary transition-colors">
-            Personel
+            Personeller
           </Link>
           <Link href="/organizasyon" className="hover:text-lapd-secondary transition-colors">
             Organizasyon
           </Link>
           <Link href="/kariyer" className="hover:text-lapd-secondary transition-colors">
             Kariyer Basamakları
+          </Link>
+          <Link href="/login" className="hover:text-lapd-secondary transition-colors">
+            <LogIn size={24} />
           </Link>
         </div>
 
@@ -76,13 +148,32 @@ const Navbar = () => {
           >
             Başvuru
           </Link>
-          <Link 
-            href="/ride-along" 
-            className="block px-3 py-2 rounded-md hover:bg-lapd-primary-dark hover:text-lapd-secondary"
-            onClick={() => setIsOpen(false)}
-          >
-            Ride Along
-          </Link>
+          <div>
+            <button 
+              onClick={toggleMobileForms} 
+              className="block px-3 py-2 rounded-md hover:bg-lapd-primary-dark hover:text-lapd-secondary"
+            >
+              Formlar
+            </button>
+            {isFormsOpen && (
+              <div className="space-y-1 bg-lapd-primary-dark">
+                <Link 
+                  href="/ride-along" 
+                  className="block px-3 py-2 rounded-md hover:bg-lapd-primary-dark hover:text-lapd-secondary"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Ride Along
+                </Link>
+                <Link 
+                  href="/ovgu-sikayet" 
+                  className="block px-3 py-2 rounded-md hover:bg-lapd-primary-dark hover:text-lapd-secondary"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Övgü Şikayet
+                </Link>
+              </div>
+            )}
+          </div>
           <Link 
             href="/personel" 
             className="block px-3 py-2 rounded-md hover:bg-lapd-primary-dark hover:text-lapd-secondary"

@@ -61,9 +61,9 @@ const Footer: React.FC = () => {
           {/* Bottom Section */}
           <div className="border-t border-white/10 pt-8">
                 <div className="flex flex-col md:flex-row justify-center items-center gap-6 text-white/70 text-sm">
-                    <p>© 2023 WestLA. Tüm hakları saklıdır.</p>
+                    <p>© 2025 WestLA. Tüm hakları saklıdır.</p>
                     <Link href="/sorumluluk-reddi" className="hover:text-lapd-secondary transition-colors">
-                    Sorumluluk Reddi
+                    Disclaimer
                     </Link>
                     <Link href="/gizlilik-politikasi" className="hover:text-lapd-secondary transition-colors">
                     Gizlilik Politikası
