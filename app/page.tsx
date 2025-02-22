@@ -25,9 +25,9 @@ export default function Home() {
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img
-            src="https://media.discordapp.net/attachments/1166058530609045524/1283174089187655804/D9F7400E-1C60-4012-8CD7-5C2E6B7FA813.png?ex=67b8443f&is=67b6f2bf&hm=60b9c556ecaa715788de06d9ba0c1b38a91dd1c4ae17b4da639de82df6ef53c6&=&format=webp&quality=lossless&width=1299&height=671"
+            src="/home-bg2.png"
             alt="LAPD Background"
-            className="w-full h-full object-cover object-center brightness-75"
+            className="w-full h-full object-cover object-[10%_90%] brightness-50"
           />
         </div>
       
@@ -123,8 +123,7 @@ export default function Home() {
           </ul>
         </div>
       </div>
-      
-      {/* Assistance Section */}
+      {/* Assistance/Dislclaimer Section */}
       <div className="bg-lapd-primary py-8">
         <div className="max-w-6xl mx-auto px-6 md:px-8 flex items-center justify-center space-x-4">
           {/* Telefon İkonu */}

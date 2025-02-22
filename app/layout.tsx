@@ -5,6 +5,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Suspense } from 'react';
 import Loading from './loading';
+import { middleware } from './middleware';
 
 
 const poppins = Poppins({
