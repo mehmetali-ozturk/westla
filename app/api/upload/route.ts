@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: "Fotoğraf yüklenemedi!" }, { status: 500 });
         }
 
-        const photoUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/photos/${fileName}`;
+        const photoUrl = `${process.env.SUPABASE_URL}/storage/v1/object/public/photos/${fileName}`;
 
         const { error: dbError } = await supabase
             .from('photos')
