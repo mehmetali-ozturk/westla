@@ -3,17 +3,17 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Loading from "../loading";
 
-interface Personnel {
+interface users {
   id: number;
-  name: string;
+  fullname: string;
   rank: string;
   bureau: string;
-  img_src: string;
+  profile_photo: string;
 }
 
 export default function Personnel() {
   const [showVideo, setShowVideo] = useState(false);
-  const [personnel, setPersonnel] = useState<Personnel[]>([]);
+  const [personnel, setPersonnel] = useState<users[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true); // 3 saniyelik yükleme için state
 
@@ -102,10 +102,10 @@ export default function Personnel() {
                 key={idx}
                 className="flex flex-col items-center bg-white p-4 rounded-lg w-64 h-max"
                 onClick={() =>
-                  person.name === "BragOvich" ? playVideo() : null
+                  person.fullname === "Jack Bragovich" ? playVideo() : null
                 }
               >
-                {person.name === "BragOvich" && showVideo ? (
+                {person.fullname === "Jack Bragovich" && showVideo ? (
                   <div className="w-full h-[220px] relative">
                     <video
                       id="bragovich-video"
@@ -118,8 +118,8 @@ export default function Personnel() {
                 ) : (
                   <div className="relative w-full h-[224px] mb-4">
                     <Image
-                      src={person.img_src}
-                      alt={person.name}
+                      src={person.profile_photo}
+                      alt={person.fullname}
                       fill
                       className="object-cover"
                       sizes="(max-width: 256px) 100vw, 256px"
@@ -127,7 +127,7 @@ export default function Personnel() {
                   </div>
                 )}
                 <h3 className="text-xl font-semibold text-lapd-primary text-center">
-                  {person.name}
+                  {person.fullname}
                 </h3>
                 <p className="text-gray-700 text-center">{person.rank}</p>
                 <p className="text-gray-500 text-center">{person.bureau}</p>

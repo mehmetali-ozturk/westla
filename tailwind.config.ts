@@ -23,6 +23,7 @@ export default {
           'secondary-dark': '#CC9900',
           'accent-light': '#54B8F0',
           'accent-dark': '#1B8FD4',
+          'danger': '#fc2003'
         }
       }
     }

@@ -16,6 +16,17 @@ const nextConfig = {
       },
     ],
   },
+  reactStrictMode: true,
+  // async redirects() {
+  //   return [
+  //     {
+  //       source: '/admin/dashboard',
+  //       destination: '/admin/dashboard',
+  //       permanent: false,
+  //     },
+      
+  //   ]
+  // }
 }
 
 module.exports = nextConfig

@@ -4,12 +4,11 @@ import Link from 'next/link';
 
 export default function Home() {
   const faqs = [
-    { question: "Sürecin ilk adımı nedir?", answer: "joinLAPD.com adresini ziyaret edin ve 'Şimdi Başvur' düğmesine tıklayın." },
-    { question: "LAPD'ye katılmak için Los Angeles'ta mı yaşamam gerekiyor?", answer: "Hayır, ancak şehri tanımanız faydalıdır." },
-    { question: "Uygun bir geçmişe sahip olmak ne anlama geliyor?", answer: "Yasalara uyum gösteren bireyler aranır." },
-    { question: "PFQ'da 50'nin üzerinde bir puan alırsam, Akademi için hazır mıyım?", answer: "PFQ'da 70'in üzerinde puan almak başarı şansını artırır." },
-    { question: "PAT'i aldıysam, PFQ'yu da almam gerekiyor mu?", answer: "PAT bir yıl geçerlidir." },
-    { question: "Çok fazla trafik cezam varsa, polis memuru olmamda sorun yaşar mıyım?", answer: "Durum vaka bazında değerlendirilir." },
+    { question: "Sürecin ilk adımı nedir?", answer: "Başvuru formunu doldurmak ve öncesinde discord.gg/westla adresine girmek." },
+    { question: "LAPD'ye katılmak için Los Angeles'ı bilmem mi gerekiyor?", answer: "Evet, Los Angeles ve polisliği hakkında temel bilginiz olması gerekmektedir." },
+    { question: "Akademi süreci bulunuyor mu?", answer: "Hayır ama belirli bir süre çaylaklık sürecinden geçirilip, değerlendiriliyorsunuz." },
+    { question: "Seçildikten sonra ne yapmalıyım?", answer: "Seçildikten sonra sesli bir mülakat ve ilerleyen işlemler için discord üzerinden ticket oluşturmanız gerekmektedir.." },
+    { question: "Herhangi bir rahatsızlığım olması elenmeme sebep olur mu?", answer: "Şiddetli anksiyete bozuklukları (panik ataklar, aşırı stres tepkileri), majör depresif bozukluk (yoğun umutsuzluk, enerji kaybı), bipolar bozukluk (ani ruh hali değişimleri), travma sonrası stres bozukluğu (TSSB) (şiddetli travmatik tepkiler), antisosyal veya borderline kişilik bozukluğu (düzensiz davranış ve öfke kontrol sorunları), şizofreni veya diğer psikotik bozukluklar (gerçeklik algısında bozulma), madde bağımlılığı (uyuşturucu veya alkol bağımlılığı) gibi durumlar adayın elenmesine neden olabilir." },
   ];
 
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -56,7 +55,7 @@ export default function Home() {
           <h2 className="text-2xl md:text-3xl font-semibold text-center mb-8 text-white">LAPD Kariyer Seçenekleri</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* Grid Item 1: Qualifications */}
-            <Link href="/qualifications" className="border-white border-[1px] relative group overflow-hidden w-full max-w-4xl h-48">
+            <Link href="/kariyer" className="border-white border-[1px] relative group overflow-hidden w-full max-w-4xl h-48">
               <div className="relative w-full h-full">
                 <img
                   src="isealim0.png"
@@ -64,13 +63,13 @@ export default function Home() {
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-50 transition-opacity duration-300 group-hover:bg-opacity-70"></div>
                 <div className="absolute inset-0 flex flex-col justify-end p-6 text-white">
-                  <div className="text-2xl font-semibold">NİTELİKLER</div>
-                  <div className="mt-2">Yaş, Eğitim, Vatandaşlık & Arka Plan Standartları</div>
+                  <div className="text-2xl font-semibold">KARİYER BASAMAKLARI</div>
+                  <div className="mt-2">LAPD Memurları Hizmet Ettikleri Toplulukları Temsil Eder</div>
                 </div>
               </div>
             </Link>
             {/* Grid Item 2: Hiring Process */}
-            <Link href="/qualifications" className="border-white border-[1px] relative group overflow-hidden w-full max-w-4xl h-48">
+            <Link href="/basvuru" className="border-white border-[1px] relative group overflow-hidden w-full max-w-4xl h-48">
               <div className="relative w-full h-full">
                 <img
                   src="isealim1.png"
@@ -79,12 +78,12 @@ export default function Home() {
                 <div className="absolute inset-0 bg-black bg-opacity-50 transition-opacity duration-300 group-hover:bg-opacity-70"></div>
                 <div className="absolute inset-0 flex flex-col justify-end p-6 text-white">
                   <div className="grid-title text-2xl font-semibold">İŞE ALIM SÜRECİ</div>
-                  <div className="grid-text mt-2">İşe Alım Sürecinde Yedi Adım</div>
+                  <div className="grid-text mt-2">Başvurmak için Formu Doldur</div>
                 </div>
               </div>
             </Link>
             {/* Grid Item 3: Diversity */}
-            <Link href="/qualifications" className="border-white border-[1px] relative group overflow-hidden w-full max-w-8xl h-48">
+            <Link href="/organizasyon" className="border-white border-[1px] relative group overflow-hidden w-full max-w-8xl h-48">
               <div className="relative w-full h-full">
                 <img
                   src="isealim2.png"
@@ -92,8 +91,8 @@ export default function Home() {
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-50 transition-opacity duration-300 group-hover:bg-opacity-70"></div>
                 <div className="absolute inset-0 flex flex-col justify-end p-6 text-white">
-                  <div className="grid-title text-2xl font-semibold">ÇEŞİTLİLİK</div>
-                  <div className="grid-text mt-2">LAPD Memurları Hizmet Ettikleri Toplulukları Temsil Eder</div>
+                  <div className="grid-title text-2xl font-semibold">ORGANİZASYON</div>
+                  <div className="grid-text mt-2">LAPD 250'den fazla farklı iş ve terfi fırsatı sunuyor.</div>
                 </div>
               </div>
             </Link>

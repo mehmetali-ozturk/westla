@@ -1,23 +1,22 @@
-import { createClient } from '@supabase/supabase-js';
+'use server'
+
+import { supabase } from '../../utils/supabase/client';
 import { NextResponse } from 'next/server';
-
-
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_ANON_KEY;
-
-const supabase = createClient(supabaseUrl!, supabaseKey!);
-
 
 export async function GET() {
     try {
-      const { data, error } = await supabase.from('personnel').select('*');
+      const { data, error } = await supabase.from('users').select('*');
   
       if (error) {
-        return NextResponse.json({ error: error.message }, { status: 500 });
+        console.error('Error fetching personnel:', error);
+        return NextResponse.json(
+          { error: (error as Error).message || 'Internal Server Error' }, 
+          { status: 500 }
+        );
       }
   
       const rankOrder: Record<string, number> = {
-        'Lieutenant': 1,
+        'Lieutenant I': 1,
         'Sergeant II': 2,
         'Detective II': 3,
         'Sergeant I': 4,
@@ -40,7 +39,6 @@ export async function GET() {
         { error: (error as Error).message || 'Internal Server Error' }, 
         { status: 500 }
       );
-    }
-    
-  }
+    } 
+}
   

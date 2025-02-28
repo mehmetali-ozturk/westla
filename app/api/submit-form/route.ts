@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 type FormDataType = {
   email: string;
@@ -19,7 +19,7 @@ type FormDataType = {
   discordJoined: boolean;
 };
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
     const webhookUrl = process.env.DISCORD_WEBHOOK_URL;
     const formData: FormDataType = await request.json();

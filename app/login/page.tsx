@@ -1,92 +1,64 @@
 'use client';
+
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 
 export default function Login() {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const router = useRouter();
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e: { preventDefault: () => void; }) => {
     e.preventDefault();
+    setError('');
 
-    try {
-      const response = await fetch('/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username, password }),
-      });
+    const res = await fetch('/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password }),
+    });
 
-      if (!response.ok) {
-        throw new Error('Giriş başarısız');
-      }
+    const data = await res.json();
 
-      const data = await response.json();
-
-      if (!data.token) {
-        throw new Error('Token alınamadı');
-      }
-
-      localStorage.setItem('token', data.token);
-
-      router.push('/basvuru');
-    } catch(error) {
-      console.error("Error: ", error);
+    if (!res.ok) {
+      setError(data.error);
+      return;
     }
+
+    window.location.href = data.redirect;
+    
+    localStorage.setItem('user', JSON.stringify(data.user));
+
+    // Yönlendirme
+    window.location.href = data.redirect;
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8 bg-white p-8 rounded-lg shadow-lg">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-lapd-primary">
-            Yönetici Girişi
-          </h2>
-        </div>
+        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          Yönetici Girişi
+        </h2>
+        {error && <p className="text-red-500 text-center">{error}</p>}
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          <div className="rounded-md shadow-sm -space-y-px">
-            <div>
-              <label htmlFor="username" className="sr-only">
-                Kullanıcı Adı
-              </label>
-              <input
-                id="username"
-                name="username"
-                type="text"
-                required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-lapd-primary focus:border-lapd-primary focus:z-10 sm:text-sm"
-                placeholder="Kullanıcı Adı"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-            </div>
-            <div>
-              <label htmlFor="password" className="sr-only">
-                Şifre
-              </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                required
-                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-lapd-primary focus:border-lapd-primary focus:z-10 sm:text-sm"
-                placeholder="Şifre"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-          </div>
-
-          <div>
-            <button
-              type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-lapd-primary hover:bg-lapd-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-lapd-primary"
-            >
-              Giriş Yap
-            </button>
-          </div>
+          <input
+            type="email"
+            placeholder="Email adresi"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full px-3 py-2 border rounded-md"
+            required
+          />
+          <input
+            type="password"
+            placeholder="Şifre"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full px-3 py-2 border rounded-md"
+            required
+          />
+          <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded-md">
+            Giriş Yap
+          </button>
         </form>
       </div>
     </div>

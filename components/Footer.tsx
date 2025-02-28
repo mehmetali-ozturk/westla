@@ -17,7 +17,7 @@ const Footer: React.FC = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 bg-lapd-primary/80">
+      <div className="relative z-0 bg-lapd-primary/80">
         <div className="max-w-7xl mx-auto px-4 py-12">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 md:pl-24 text-center md:text-left">
             {/* Logo Section */}
@@ -42,6 +42,9 @@ const Footer: React.FC = () => {
                 </Link>
                 <Link href="/ride-along" className="block hover:text-gray-500 duration-300 transition-colors">
                   Ride Along
+                </Link>
+                <Link href="/ovgu-sikayet" className="block hover:text-gray-500 duration-300 transition-colors">
+                  Övgü ve Şikayet 
                 </Link>
               </div>
               <div className="space-y-4">

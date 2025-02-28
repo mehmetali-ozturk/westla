@@ -21,9 +21,9 @@ const sections = [
     reverse: false,
   },
   {
-    title: "Special Weapons and Tactics (SWAT)",
+    title: "Metropolitan Division",
     imgSrc: "/swat.jpg",
-    description: "SWAT, yüksek riskli operasyonları yönetmek üzere özel olarak eğitilmiş birimdir. Rehine kurtarma operasyonları, ağır silahlı suçlulara karşı müdahale ve terörle mücadele gibi kritik görevlerde yer alır. Gelişmiş silahlar ve taktiklerle donatılmış olan ekipler, ani gelişen tehlikeli durumlara hızla yanıt verir. Ekip üyeleri, düzenli olarak fiziksel ve psikolojik dayanıklılık eğitimlerinden geçerek, en stresli anlarda bile soğukkanlı kalmayı öğrenir. Şehrin güvenliğini tehdit eden her türlü olayda, SWAT her zaman en ön safta yer alır.",
+    description: "Metropolitan Bölümü, yaygın olarak Metro Bölümü veya sadece Metro olarak anılır, Los Angeles Polis Departmanı'nın (LAPD) Özel Operasyonlar Grubu'na bağlı seçkin bir bölümüdür. Metropolitan Bölümü, LAPD'nin 'platoons' olarak adlandırılan özel suç bastırma, K-9, atlı ve SWAT birimlerini yönetmekten sorumludur. Metropolitan Bölümü, büyük suçları çözme, arama emri hizmeti, ileri gelen koruma, gözetleme, terörle mücadele, isyan kontrolü ve yüksek riskli çıkmazları çözme dahil olmak üzere çok sayıda görevden sorumludur.",
     description2: "Zor görevler, cesur ekipler gerektirir.",
     reverse: true,
   },

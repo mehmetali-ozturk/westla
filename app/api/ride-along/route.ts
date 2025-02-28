@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 type RideAlongFormData = {
   icName: string;
@@ -11,7 +11,7 @@ type RideAlongFormData = {
   TOC2: boolean;
 };
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
     const webhookUrl = process.env.DISCORD_WEBHOOK_URL_RIDE_ALONG;
     const formData: RideAlongFormData = await request.json();

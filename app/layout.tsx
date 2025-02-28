@@ -5,7 +5,6 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Suspense } from 'react';
 import Loading from './loading';
-import { middleware } from './middleware';
 
 
 const poppins = Poppins({
@@ -29,9 +28,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${poppins.className} antialiased`}>
         <Suspense fallback={<Loading />}>
+          <div className="flex flex-col min-h-screen">
           <Navbar />
           {children}
           <Footer />
+          </div>
         </Suspense>
       </body>
     </html>
